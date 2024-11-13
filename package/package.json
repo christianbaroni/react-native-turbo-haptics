@@ -1,0 +1,84 @@
+{
+  "name": "react-native-turbo-haptics",
+  "version": "1.0.0",
+  "description": "Fast, worklet-compatible haptic feedback for React Native",
+  "main": "lib/commonjs/index",
+  "module": "lib/module/index",
+  "types": "lib/typescript/index.d.ts",
+  "react-native": "src/index",
+  "source": "src/index",
+  "files": [
+    "src",
+    "lib",
+    "android",
+    "ios",
+    "cpp",
+    "*.podspec",
+    "!lib/typescript/example",
+    "!ios/build",
+    "!android/build",
+    "!android/gradle",
+    "!android/gradlew",
+    "!android/gradlew.bat",
+    "!android/local.properties",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__",
+    "!**/.*"
+  ],
+  "scripts": {
+    "typescript": "tsc --noEmit",
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "prepare": "bob build",
+    "clean": "del-cli lib",
+    "build": "bob build",
+    "prepack": "bob build"
+  },
+  "keywords": [
+    "react-native",
+    "ios",
+    "android",
+    "haptics",
+    "haptic-feedback",
+    "worklet",
+    "vibration"
+  ],
+  "repository": "https://github.com/christianbaroni/react-native-turbo-haptics",
+  "author": "Christian Baroni <7061887+christianbaroni@users.noreply.github.com> (https://github.com/christianbaroni)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/christianbaroni/react-native-turbo-haptics/issues"
+  },
+  "homepage": "https://github.com/christianbaroni/react-native-turbo-haptics#readme",
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-native": ">=0.72.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-native": "^0.72.0",
+    "react": "18.2.0",
+    "react-native": "0.72.17",
+    "react-native-builder-bob": "^0.20.0",
+    "release-it": "^15.0.0",
+    "typescript": "^5.0.0",
+    "del-cli": "^5.0.0"
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
+  },
+  "codegenConfig": {
+    "name": "TurboHapticsSpec",
+    "type": "modules",
+    "jsSrcsDir": "src",
+    "android": {
+      "javaPackageName": "com.turbohaptics"
+    }
+  }
+}
