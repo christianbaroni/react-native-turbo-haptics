@@ -26,7 +26,10 @@ export const initTurboHaptics = () => {
         success = module.install();
       }
       // [RN 0.74+] Check for JSI environment and install bindings
-      else if (global.__turboModuleProxy != null) {
+      else if (
+        global.__turboModuleProxy != null &&
+        TurboHapticsModule !== null
+      ) {
         try {
           success = TurboHapticsModule.install();
         } catch (e) {

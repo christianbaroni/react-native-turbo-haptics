@@ -5,4 +5,4 @@ export interface Spec extends TurboModule {
   install(): boolean;
 }
 
-export default TurboModuleRegistry.getEnforcing<Spec>('TurboHaptics');
+export default TurboModuleRegistry.get<Spec>('TurboHaptics');
