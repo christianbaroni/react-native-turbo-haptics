@@ -25,16 +25,12 @@ RCT_EXPORT_MODULE(TurboHaptics)
     if (self = [super init]) {
         NSNotificationCenter* center = [NSNotificationCenter defaultCenter];
         [center addObserver:self
-                  selector:@selector(handleAppWillResignActive:)
+                  selector:@selector(handleAppStateChange:)
                       name:UIApplicationWillResignActiveNotification
                     object:nil];
         [center addObserver:self
-                  selector:@selector(handleAppDidEnterBackground:)
+                  selector:@selector(handleAppStateChange:)
                       name:UIApplicationDidEnterBackgroundNotification
-                    object:nil];
-        [center addObserver:self
-                  selector:@selector(handleAppWillEnterForeground:)
-                      name:UIApplicationWillEnterForegroundNotification
                     object:nil];
     }
     return self;
@@ -44,15 +40,7 @@ RCT_EXPORT_MODULE(TurboHaptics)
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)handleAppWillResignActive:(NSNotification *)notification {
-    TurboHapticsHostObject::cleanup();
-}
-
-- (void)handleAppDidEnterBackground:(NSNotification *)notification {
-    TurboHapticsHostObject::cleanup();
-}
-
-- (void)handleAppWillEnterForeground:(NSNotification *)notification {
+- (void)handleAppStateChange:(NSNotification *)notification {
     TurboHapticsHostObject::cleanup();
 }
 
