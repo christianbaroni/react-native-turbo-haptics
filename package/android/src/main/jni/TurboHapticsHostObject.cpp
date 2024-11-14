@@ -3,8 +3,14 @@
 #include <android/api-level.h>
 
 #define LOG_TAG "TurboHaptics"
-#define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
+
+// VibrationEffect presets (API 29+)
+// See: https://developer.android.com/reference/android/os/VibrationEffect
+#define EFFECT_TICK 2 // Lightest
+#define EFFECT_CLICK 0 // Medium
+#define EFFECT_HEAVY_CLICK 5 // Heaviest
+#define EFFECT_DOUBLE_CLICK 1
 
 namespace turbohaptics {
     // Initialize static members
@@ -98,29 +104,20 @@ namespace turbohaptics {
         }
 
         // Map feedback types to VibrationEffect constants
-        // See https://developer.android.com/reference/android/os/VibrationEffect
-        int effect_id;
+        // Default to lightest effect to handle unknown types
+        int effect_id = EFFECT_TICK;
 
-        if (type == "impactLight" || type == "selection" || type == "soft") {
-            effect_id = 0; // EFFECT_CLICK - Light click effect
+        if (type == "selection" || type == "soft") {
+            effect_id = EFFECT_TICK;
         }
-        else if (type == "impactMedium" || type == "rigid") {
-            effect_id = 2; // EFFECT_DOUBLE_CLICK - Medium click effect
+        else if (type == "impactLight" || type == "impactMedium" || type == "rigid") {
+            effect_id = EFFECT_CLICK;
         }
-        else if (type == "impactHeavy") {
-            effect_id = 1; // EFFECT_HEAVY_CLICK - Heavy click effect
+        else if (type == "impactHeavy" || type == "notificationWarning" || type == "notificationError") {
+            effect_id = EFFECT_HEAVY_CLICK;
         }
         else if (type == "notificationSuccess") {
-            effect_id = 5; // EFFECT_TICK - Light notification
-        }
-        else if (type == "notificationWarning") {
-            effect_id = 2; // EFFECT_DOUBLE_CLICK - Medium notification
-        }
-        else if (type == "notificationError") {
-            effect_id = 1; // EFFECT_HEAVY_CLICK - Heavy notification
-        }
-        else {
-            effect_id = 0; // Default to light click for unknown types
+            effect_id = EFFECT_DOUBLE_CLICK;
         }
 
         // Trigger vibration based on API level
