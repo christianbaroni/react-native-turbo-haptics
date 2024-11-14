@@ -20,23 +20,15 @@ TurboHapticsHostObject::~TurboHapticsHostObject() {
 
 void TurboHapticsHostObject::cleanup() {
     if (impactGeneratorMap != nil) {
-        for (NSString* key in impactGeneratorMap) {
-            UIImpactFeedbackGenerator* generator = impactGeneratorMap[key];
-            if (generator != nil) {
-                [generator prepare]; // Ensure any pending haptics are cleared
-            }
-        }
         [impactGeneratorMap removeAllObjects];
         impactGeneratorMap = nil;
     }
     
     if (selectionGenerator != nil) {
-        [selectionGenerator prepare];
         selectionGenerator = nil;
     }
     
     if (notificationGenerator != nil) {
-        [notificationGenerator prepare];
         notificationGenerator = nil;
     }
 }
