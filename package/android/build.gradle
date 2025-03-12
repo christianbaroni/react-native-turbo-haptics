@@ -19,6 +19,15 @@ android {
     namespace "com.turbohaptics"
     compileSdkVersion safeExtGet('compileSdkVersion', 33)
 
+    // Used to override the NDK path/version on internal CI or by allowing
+    // users to customize the NDK path/version from their root project.
+    if (rootProject.hasProperty("ndkPath")) {
+        ndkPath rootProject.ext.ndkPath
+    }
+    if (rootProject.hasProperty("ndkVersion")) {
+        ndkVersion rootProject.ext.ndkVersion
+    }
+
     defaultConfig {
         minSdkVersion safeExtGet('minSdkVersion', 21)
         targetSdkVersion safeExtGet('targetSdkVersion', 33)
