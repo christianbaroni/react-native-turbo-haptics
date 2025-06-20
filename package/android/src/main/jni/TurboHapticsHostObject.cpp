@@ -50,7 +50,7 @@ namespace turbohaptics {
             hasVibrator_ = env->CallBooleanMethod(vibrator_, hasVibratorMethod);
 
             // Cache methods based on API level
-            if (androidApiLevel_ >= 26) { // VibrationEffect API
+            if (androidApiLevel_ >= 29) { // VibrationEffect API
                 jclass localEffectClass = env->FindClass("android/os/VibrationEffect");
                 if (localEffectClass) {
                     vibrationEffectClass_ = (jclass)env->NewGlobalRef(localEffectClass);
