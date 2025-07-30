@@ -3,10 +3,10 @@ import TurboHapticsModule from './NativeTurboHaptics';
 
 declare global {
   var __turboModuleProxy: unknown | undefined;
-  function nativeCallSyncHook(): unknown;
   function createHapticFeedback(): {
     trigger: (type: import('./index').HapticType) => void;
   };
+  function nativeCallSyncHook(): unknown;
 }
 
 const noop = () => {
@@ -16,25 +16,18 @@ const noop = () => {
 
 export const initTurboHaptics = () => {
   // Check if already initialized
-  if (global.createHapticFeedback == null) {
+  if (globalThis.createHapticFeedback == null) {
     try {
       let success = false;
-      const module = NativeModules.TurboHaptics;
+      const nativeModule = NativeModules.TurboHaptics;
 
-      // [Pre-0.74] Check for JSI environment and install bindings
-      if (global.nativeCallSyncHook != null && module?.install) {
-        success = module.install();
-      }
-      // [RN 0.74+] Check for JSI environment and install bindings
-      else if (
-        global.__turboModuleProxy != null &&
-        TurboHapticsModule !== null
+      if (
+        TurboHapticsModule &&
+        typeof TurboHapticsModule.install === 'function'
       ) {
-        try {
-          success = TurboHapticsModule.install();
-        } catch (e) {
-          console.warn('TurboHaptics: TurboModule not available:', e);
-        }
+        success = TurboHapticsModule.install();
+      } else if (nativeModule && typeof nativeModule.install === 'function') {
+        success = nativeModule.install();
       }
 
       if (!success) {
@@ -42,7 +35,7 @@ export const initTurboHaptics = () => {
         return null;
       }
 
-      if (global.createHapticFeedback == null) {
+      if (globalThis.createHapticFeedback == null) {
         console.warn('TurboHaptics: Failed to create haptic feedback');
         return null;
       }
@@ -52,7 +45,9 @@ export const initTurboHaptics = () => {
     }
   }
 
-  return global.createHapticFeedback ? global.createHapticFeedback() : null;
+  return globalThis.createHapticFeedback
+    ? globalThis.createHapticFeedback()
+    : null;
 };
 
 // Initialize module
