@@ -1,6 +1,6 @@
 {
   "name": "react-native-turbo-haptics",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Fast, worklet-compatible haptic feedback for React Native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",

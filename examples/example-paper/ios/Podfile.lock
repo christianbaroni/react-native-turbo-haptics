@@ -1081,7 +1081,7 @@ PODS:
     - React-Core
     - ReactCommon/turbomodule/core
   - SocketRocket (0.6.1)
-  - TurboHaptics (1.0.7):
+  - TurboHaptics (1.0.8):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
@@ -1307,7 +1307,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: 71902d798f4e1dc297f1041d33e717eaccd6af52
   RNReanimated: 22c5b0d79ddfa424a573fdfe6d4a03ef8f50b4f7
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
-  TurboHaptics: 8be93a84ce689f1539fe83cabe89e3ffea38ee41
+  TurboHaptics: 6506c4eec4b2896a9bc0692689c06285f965395b
   Yoga: 66a97477b94264cc4e49990c8fe6b153260d871d
 
 PODFILE CHECKSUM: 806cb2013b351cc5b4c46a57315e2a6f276abbc6

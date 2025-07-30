@@ -1618,7 +1618,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - Yoga
   - SocketRocket (0.7.1)
-  - TurboHaptics (1.0.7):
+  - TurboHaptics (1.0.8):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1916,7 +1916,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: 16ef3dc2d7ecb09f240f25df5255953c4098819b
   RNReanimated: e01050e272623a49aba628de3dfd2b539b8cc4c6
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
-  TurboHaptics: 76fd856bfbcba7b832238d873a2785486761f4c4
+  TurboHaptics: d78699ae7a0a370743291e0a4f5d45e6136a62fa
   Yoga: db69236006b8b1c6d55ab453390c882306cbf219
 
 PODFILE CHECKSUM: 71a689932e49f453bd6454dd189b45915dda66a0
