@@ -5415,7 +5415,7 @@ react-native-reanimated@3.18.0:
     react-native-is-edge-to-edge "1.1.7"
 
 react-native-turbo-haptics@../../package:
-  version "1.1.0"
+  version "1.2.0"
 
 react-native@0.79.3:
   version "0.79.3"
