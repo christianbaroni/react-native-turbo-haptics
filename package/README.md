@@ -4,9 +4,9 @@ Fast, **worklet-compatible** haptic feedback for React Native.
 
 ## Features
 
-- 🏎️ Zero-delay haptic feedback, powered by JSI
+- 🏎️ JSI-powered haptic feedback
 - 🪄 Compatible with Reanimated and Gesture Handler worklets
-- 🎯 9 different haptic patterns (impact, notification, selection)
+- 🎯 9 haptic types (impact, notification, selection)
 - 📱 iOS and Android support
 - 🪶 Lightweight, zero dependencies
 
@@ -20,14 +20,16 @@ cd ios && pod install
 ## Compatibility
 
 Paper is supported on React Native 0.72–0.81. The New Architecture is supported
-on React Native 0.75 or newer.
+on React Native 0.75 or newer. Android supports API 21+; the library compiles
+against SDK 34 or the app’s compile SDK, whichever is newer.
+
+Android haptics respect system settings and require an active app window.
 
 ## Threading
 
-On iOS, UI-thread worklets invoke UIKit directly. Calls from the React Native
-JavaScript thread or another worker thread are forwarded to the main queue, as
-required by UIKit. Android invokes the vibrator from the calling runtime thread.
-The API remains fire-and-forget on every path.
+UI-thread worklets invoke the platform directly. Calls from the React Native
+JavaScript thread or another worker thread are forwarded to the main queue.
+The API is fire-and-forget on both platforms.
 
 ## Usage
 

@@ -1,7 +1,5 @@
 package com.turbohaptics
 
-import android.os.Vibrator
-import com.facebook.proguard.annotations.DoNotStrip
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.turbomodule.core.interfaces.BindingsInstallerHolder
 import com.facebook.react.turbomodule.core.interfaces.TurboModuleWithJSIBindings
@@ -18,14 +16,19 @@ class TurboHapticsModule(context: ReactApplicationContext) :
         }
     }
 
-    private val didInitialize = nativeInitialize(getDefaultVibrator(context))
+    private val haptics = HapticFeedback(context)
 
     override fun getName(): String = NAME
 
-    override fun install(): Boolean = didInitialize
+    override fun install(): Boolean = true
 
-    @DoNotStrip
-    external override fun getBindingsInstaller(): BindingsInstallerHolder
+    override fun getBindingsInstaller(): BindingsInstallerHolder =
+        nativeGetBindingsInstaller(haptics)
 
-    private external fun nativeInitialize(vibrator: Vibrator?): Boolean
+    override fun invalidate() {
+        haptics.invalidate()
+        super.invalidate()
+    }
+
+    private external fun nativeGetBindingsInstaller(haptics: HapticFeedback): BindingsInstallerHolder
 }

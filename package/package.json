@@ -18,6 +18,7 @@
     "!ios/build",
     "!ios/**/xcuserdata/**",
     "!android/build",
+    "!android/src/test",
     "!android/gradle",
     "!android/gradlew",
     "!android/gradlew.bat",

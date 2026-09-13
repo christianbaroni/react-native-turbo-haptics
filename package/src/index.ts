@@ -17,7 +17,7 @@ export type HapticType = (typeof HapticTypes)[keyof typeof HapticTypes];
 /**
  * #### `🌀 triggerHaptics 🌀`
  *
- * Triggers immediate haptic feedback.
+ * Requests haptic feedback.
  *
  * Compatible with worklets (Reanimated, Gesture Handler).
  *

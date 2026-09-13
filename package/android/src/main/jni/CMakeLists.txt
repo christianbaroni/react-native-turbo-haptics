@@ -8,19 +8,17 @@ add_library(turbo-haptics SHARED
         TurboHapticsBindings.cpp)
 
 find_package(ReactAndroid REQUIRED CONFIG)
+find_package(fbjni REQUIRED CONFIG)
 
 target_link_libraries(turbo-haptics
-        android
+        fbjni::fbjni
         ReactAndroid::jsi)
 
 if(TURBO_HAPTICS_NEW_ARCHITECTURE)
-    find_package(fbjni REQUIRED CONFIG)
-
     target_compile_definitions(turbo-haptics PRIVATE
             TURBO_HAPTICS_NEW_ARCHITECTURE=1)
 
     target_link_libraries(turbo-haptics
-            fbjni::fbjni
             ReactAndroid::reactnative)
 else()
     find_library(log-lib log)

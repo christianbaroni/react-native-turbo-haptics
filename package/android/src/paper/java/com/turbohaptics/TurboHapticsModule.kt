@@ -1,13 +1,12 @@
 package com.turbohaptics
 
-import android.os.Vibrator
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.module.annotations.ReactModule
 
 @ReactModule(name = TurboHapticsModule.NAME)
-class TurboHapticsModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
+class TurboHapticsModule(context: ReactApplicationContext) : ReactContextBaseJavaModule(context) {
     companion object {
         const val NAME = "TurboHaptics"
 
@@ -16,25 +15,30 @@ class TurboHapticsModule(reactContext: ReactApplicationContext) : ReactContextBa
         }
     }
 
+    private val haptics = HapticFeedback(context)
+
     override fun getName(): String = NAME
 
     @ReactMethod(isBlockingSynchronousMethod = true)
     fun install(): Boolean {
         try {
-            val catalystInstance = reactApplicationContext.catalystInstance
-                    ?: return false
-
+            val catalystInstance = reactApplicationContext.catalystInstance ?: return false
             val runtimePointer = catalystInstance.javaScriptContextHolder.get()
             if (runtimePointer == 0L) {
                 return false
             }
 
-            return nativeInstallHaptics(runtimePointer, getDefaultVibrator(reactApplicationContext))
+            return nativeInstallHaptics(runtimePointer, haptics)
         } catch (e: Exception) {
             e.printStackTrace()
             return false
         }
     }
 
-    private external fun nativeInstallHaptics(runtimePointer: Long, vibrator: Vibrator?): Boolean
+    override fun invalidate() {
+        haptics.invalidate()
+        super.invalidate()
+    }
+
+    private external fun nativeInstallHaptics(runtimePointer: Long, haptics: HapticFeedback): Boolean
 }

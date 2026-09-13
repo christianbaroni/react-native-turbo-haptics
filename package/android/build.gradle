@@ -19,7 +19,7 @@ if (newArchitectureEnabled) {
 
 android {
     namespace "com.turbohaptics"
-    compileSdkVersion safeExtGet('compileSdkVersion', 33)
+    compileSdkVersion Math.max(34, safeExtGet('compileSdkVersion', 34))
 
     // Used to override the NDK path/version on internal CI or by allowing
     // users to customize the NDK path/version from their root project.
@@ -88,4 +88,8 @@ android {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
     compileOnly "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
+
+    testImplementation "junit:junit:4.13.2"
+    testImplementation "org.robolectric:robolectric:4.13"
+    testImplementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
 }
