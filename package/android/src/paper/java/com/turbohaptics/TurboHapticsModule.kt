@@ -1,5 +1,6 @@
 package com.turbohaptics
 
+import android.os.Vibrator
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
@@ -11,11 +12,7 @@ class TurboHapticsModule(reactContext: ReactApplicationContext) : ReactContextBa
         const val NAME = "TurboHaptics"
 
         init {
-            try {
-                System.loadLibrary("turbo-haptics")
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            System.loadLibrary("turbo-haptics")
         }
     }
 
@@ -32,12 +29,12 @@ class TurboHapticsModule(reactContext: ReactApplicationContext) : ReactContextBa
                 return false
             }
 
-            return nativeInstallHaptics(runtimePointer, reactApplicationContext)
+            return nativeInstallHaptics(runtimePointer, getDefaultVibrator(reactApplicationContext))
         } catch (e: Exception) {
             e.printStackTrace()
             return false
         }
     }
 
-    private external fun nativeInstallHaptics(runtimePointer: Long, context: ReactApplicationContext): Boolean
+    private external fun nativeInstallHaptics(runtimePointer: Long, vibrator: Vibrator?): Boolean
 }

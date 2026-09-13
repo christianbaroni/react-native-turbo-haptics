@@ -7,16 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AAE94D612CE2D4B6000D3A84 /* TurboHapticsHostObject.h in Headers */ = {isa = PBXBuildFile; fileRef = AAE94D5C2CE2D4B6000D3A84 /* TurboHapticsHostObject.h */; };
+		AAE94D612CE2D4B6000D3A84 /* TurboHapticsBindings.h in Headers */ = {isa = PBXBuildFile; fileRef = AAE94D5C2CE2D4B6000D3A84 /* TurboHapticsBindings.h */; };
 		AAE94D622CE2D4B6000D3A84 /* TurboHapticsModule.h in Headers */ = {isa = PBXBuildFile; fileRef = AAE94D5E2CE2D4B6000D3A84 /* TurboHapticsModule.h */; };
-		AAE94D632CE2D4B6000D3A84 /* TurboHapticsHostObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAE94D5D2CE2D4B6000D3A84 /* TurboHapticsHostObject.mm */; };
+		AAE94D632CE2D4B6000D3A84 /* TurboHapticsBindings.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAE94D5D2CE2D4B6000D3A84 /* TurboHapticsBindings.mm */; };
 		AAE94D642CE2D4B6000D3A84 /* TurboHapticsModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAE94D5F2CE2D4B6000D3A84 /* TurboHapticsModule.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AAE94D502CE2D416000D3A84 /* TurboHaptics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TurboHaptics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AAE94D5C2CE2D4B6000D3A84 /* TurboHapticsHostObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TurboHapticsHostObject.h; sourceTree = "<group>"; };
-		AAE94D5D2CE2D4B6000D3A84 /* TurboHapticsHostObject.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TurboHapticsHostObject.mm; sourceTree = "<group>"; };
+		AAE94D5C2CE2D4B6000D3A84 /* TurboHapticsBindings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TurboHapticsBindings.h; sourceTree = "<group>"; };
+		AAE94D5D2CE2D4B6000D3A84 /* TurboHapticsBindings.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TurboHapticsBindings.mm; sourceTree = "<group>"; };
 		AAE94D5E2CE2D4B6000D3A84 /* TurboHapticsModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TurboHapticsModule.h; sourceTree = "<group>"; };
 		AAE94D5F2CE2D4B6000D3A84 /* TurboHapticsModule.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TurboHapticsModule.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -36,8 +36,8 @@
 			isa = PBXGroup;
 			children = (
 				AAE94D512CE2D416000D3A84 /* Products */,
-				AAE94D5C2CE2D4B6000D3A84 /* TurboHapticsHostObject.h */,
-				AAE94D5D2CE2D4B6000D3A84 /* TurboHapticsHostObject.mm */,
+				AAE94D5C2CE2D4B6000D3A84 /* TurboHapticsBindings.h */,
+				AAE94D5D2CE2D4B6000D3A84 /* TurboHapticsBindings.mm */,
 				AAE94D5E2CE2D4B6000D3A84 /* TurboHapticsModule.h */,
 				AAE94D5F2CE2D4B6000D3A84 /* TurboHapticsModule.mm */,
 			);
@@ -58,7 +58,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAE94D612CE2D4B6000D3A84 /* TurboHapticsHostObject.h in Headers */,
+				AAE94D612CE2D4B6000D3A84 /* TurboHapticsBindings.h in Headers */,
 				AAE94D622CE2D4B6000D3A84 /* TurboHapticsModule.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -134,7 +134,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAE94D632CE2D4B6000D3A84 /* TurboHapticsHostObject.mm in Sources */,
+				AAE94D632CE2D4B6000D3A84 /* TurboHapticsBindings.mm in Sources */,
 				AAE94D642CE2D4B6000D3A84 /* TurboHapticsModule.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

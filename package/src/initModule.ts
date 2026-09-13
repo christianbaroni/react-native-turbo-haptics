@@ -2,20 +2,16 @@ import { NativeModules } from 'react-native';
 import TurboHapticsModule from './NativeTurboHaptics';
 
 declare global {
-  var __turboModuleProxy: unknown | undefined;
   function createHapticFeedback(): {
     trigger: (type: import('./index').HapticType) => void;
   };
-  function nativeCallSyncHook(): unknown;
 }
 
 const noop = () => {
   'worklet';
-  return;
 };
 
 export const initTurboHaptics = () => {
-  // Check if already initialized
   if (globalThis.createHapticFeedback == null) {
     try {
       let success = false;
@@ -50,7 +46,6 @@ export const initTurboHaptics = () => {
     : null;
 };
 
-// Initialize module
 const haptics = initTurboHaptics() || {
   trigger: noop,
 };

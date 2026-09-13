@@ -11,7 +11,9 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
-if (isNewArchitectureEnabled()) {
+def newArchitectureEnabled = isNewArchitectureEnabled()
+
+if (newArchitectureEnabled) {
     apply plugin: 'com.facebook.react'
 }
 
@@ -28,21 +30,36 @@ android {
         ndkVersion rootProject.ext.ndkVersion
     }
 
+    buildFeatures {
+        prefab true
+    }
+
+    packaging {
+        jniLibs {
+            excludes += [
+                    "**/libc++_shared.so",
+                    "**/libfbjni.so",
+                    "**/libjsi.so",
+                    "**/libreactnative.so",
+            ]
+        }
+    }
+
     defaultConfig {
         minSdkVersion safeExtGet('minSdkVersion', 21)
         targetSdkVersion safeExtGet('targetSdkVersion', 33)
-        buildConfigField("boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString())
         externalNativeBuild {
             cmake {
-                cppFlags "-std=c++17"
-                arguments "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON"
+                arguments "-DANDROID_STL=c++_shared",
+                        "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON",
+                        "-DTURBO_HAPTICS_NEW_ARCHITECTURE=${newArchitectureEnabled}"
             }
         }
     }
 
     sourceSets {
         main {
-            if (isNewArchitectureEnabled()) {
+            if (newArchitectureEnabled) {
                 java.srcDirs += [
                         'src/fabric',
                         // Codegen output directory

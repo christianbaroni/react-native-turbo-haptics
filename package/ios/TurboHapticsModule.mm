@@ -6,14 +6,24 @@
 //
 
 #import "TurboHapticsModule.h"
-#import "TurboHapticsHostObject.h"
-#import <React/RCTBridge+Private.h>
-#import <jsi/jsi.h>
+#import "TurboHapticsBindings.h"
 
-@implementation TurboHapticsModule {
-    facebook::jsi::Runtime* _runtime;
-    std::shared_ptr<facebook::jsi::Function> _createHapticFeedback;
-}
+#ifdef RCT_NEW_ARCH_ENABLED
+#import <ReactCommon/CallInvoker.h>
+#import <ReactCommon/RCTTurboModuleWithJSIBindings.h>
+#import <cxxreact/ReactNativeVersion.h>
+#else
+#import <React/RCTBridge+Private.h>
+#endif
+
+#include <memory>
+
+#ifdef RCT_NEW_ARCH_ENABLED
+@interface TurboHapticsModule () <RCTTurboModuleWithJSIBindings>
+@end
+#endif
+
+@implementation TurboHapticsModule
 
 RCT_EXPORT_MODULE(TurboHaptics)
 
@@ -22,7 +32,8 @@ RCT_EXPORT_MODULE(TurboHaptics)
 }
 
 - (instancetype)init {
-    if (self = [super init]) {
+    self = [super init];
+    if (self) {
         NSNotificationCenter* center = [NSNotificationCenter defaultCenter];
         [center addObserver:self
                   selector:@selector(handleAppStateChange:)
@@ -40,55 +51,55 @@ RCT_EXPORT_MODULE(TurboHaptics)
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)handleAppStateChange:(NSNotification *)notification {
-    TurboHapticsHostObject::cleanup();
+- (void)handleAppStateChange:(NSNotification*)notification {
+    (void)notification;
+    turbohaptics::cleanup();
 }
 
 - (void)invalidate {
-    TurboHapticsHostObject::cleanup();
-    _runtime = nil;
-    _createHapticFeedback.reset();
+    turbohaptics::cleanup();
 }
 
 #ifdef RCT_NEW_ARCH_ENABLED
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
-   (const facebook::react::ObjCTurboModule::InitParams&)params {
+    (const facebook::react::ObjCTurboModule::InitParams&)params {
     return std::make_shared<facebook::react::NativeTurboHapticsSpecJSI>(params);
 }
+
+#if defined(REACT_NATIVE_VERSION_MAJOR) && \
+    defined(REACT_NATIVE_VERSION_MINOR) && \
+    (REACT_NATIVE_VERSION_MAJOR > 0 || REACT_NATIVE_VERSION_MINOR >= 79)
+- (void)installJSIBindingsWithRuntime:(facebook::jsi::Runtime&)runtime
+                          callInvoker:(const std::shared_ptr<facebook::react::CallInvoker>&)callInvoker {
+    (void)callInvoker;
+    turbohaptics::installHapticFeedback(runtime);
+}
+#else
+// RN 0.75-0.78 have no version macros; keep their compatible one-argument
+// selector until support for that range is removed.
+- (void)installJSIBindingsWithRuntime:(facebook::jsi::Runtime&)runtime {
+    turbohaptics::installHapticFeedback(runtime);
+}
+#endif
 #endif
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(install) {
-    RCTBridge* bridge = [RCTBridge currentBridge];
-    RCTCxxBridge* cxxBridge = (RCTCxxBridge*)bridge;
-    
+#ifdef RCT_NEW_ARCH_ENABLED
+    return @true;
+#else
+    RCTCxxBridge* cxxBridge = (RCTCxxBridge*)[RCTBridge currentBridge];
     if (cxxBridge == nil) {
         return @false;
     }
 
-    auto jsiRuntime = (facebook::jsi::Runtime*)cxxBridge.runtime;
-    if (jsiRuntime == nil) {
+    auto* runtime = static_cast<facebook::jsi::Runtime*>(cxxBridge.runtime);
+    if (runtime == nullptr) {
         return @false;
     }
-    
-    _runtime = jsiRuntime;
-    auto& runtime = *jsiRuntime;
-    
-    _createHapticFeedback = std::make_shared<facebook::jsi::Function>(
-        facebook::jsi::Function::createFromHostFunction(
-            runtime,
-            facebook::jsi::PropNameID::forAscii(runtime, "createHapticFeedback"),
-            0,
-            [](facebook::jsi::Runtime& runtime,
-               const facebook::jsi::Value& thisValue,
-               const facebook::jsi::Value* arguments,
-               size_t count) -> facebook::jsi::Value {
-                auto hostObject = std::make_shared<TurboHapticsHostObject>();
-                return facebook::jsi::Object::createFromHostObject(runtime, hostObject);
-            }));
-        
-    runtime.global().setProperty(runtime, "createHapticFeedback", *_createHapticFeedback);
-    
+
+    turbohaptics::installHapticFeedback(*runtime);
     return @true;
+#endif
 }
 
 @end
