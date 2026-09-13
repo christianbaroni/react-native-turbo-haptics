@@ -1,6 +1,7 @@
 {
   "name": "react-native-turbo-haptics",
   "version": "1.0.9",
+  "packageManager": "yarn@1.22.22",
   "description": "Fast, worklet-compatible haptic feedback for React Native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -12,10 +13,10 @@
     "lib",
     "android",
     "ios",
-    "cpp",
     "*.podspec",
     "!lib/typescript/example",
     "!ios/build",
+    "!ios/**/xcuserdata/**",
     "!android/build",
     "!android/gradle",
     "!android/gradlew",
@@ -28,7 +29,7 @@
   ],
   "scripts": {
     "typescript": "tsc --noEmit",
-    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "prepare": "bob build",
     "clean": "del-cli lib",
     "build": "bob build",
@@ -55,12 +56,15 @@
     "react-native": ">=0.72.0"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
     "@types/react": "^18.2.0",
     "@types/react-native": "^0.72.0",
+    "del-cli": "^5.0.0",
+    "eslint": "^8.57.1",
     "react-native-builder-bob": "^0.20.0",
     "release-it": "^15.0.0",
-    "typescript": "^5.0.0",
-    "del-cli": "^5.0.0"
+    "typescript": "~5.0.4"
   },
   "react-native-builder-bob": {
     "source": "src",
@@ -68,7 +72,12 @@
     "targets": [
       "commonjs",
       "module",
-      "typescript"
+      [
+        "typescript",
+        {
+          "tsc": "node_modules/.bin/tsc"
+        }
+      ]
     ]
   },
   "codegenConfig": {
