@@ -17,6 +17,18 @@ yarn add react-native-turbo-haptics
 cd ios && pod install
 ```
 
+## Compatibility
+
+Paper is supported on React Native 0.72–0.81. The New Architecture is supported
+on React Native 0.75 or newer.
+
+## Threading
+
+On iOS, UI-thread worklets invoke UIKit directly. Calls from the React Native
+JavaScript thread or another worker thread are forwarded to the main queue, as
+required by UIKit. Android invokes the vibrator from the calling runtime thread.
+The API remains fire-and-forget on every path.
+
 ## Usage
 
 ```ts
